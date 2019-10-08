@@ -1,0 +1,24 @@
+.searchbar{
+
+    margin-top: 200px;
+    margin-left:450px;
+    position: relative;
+}
+
+.bg {
+
+  background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/k-p-197-pom-8008.jpg?w=1400&dpr=1&fit=default&crop=default&auto=format&fm=jpg&q=75&vib=3&con=3&usm=15&markpad=13&markalpha=90&markscale=10&markx=25&mark=rawpixel-watermark.png&cs=srgb&bg=F4F4F3&ixlib=js-2.1.2&s=37034fabc5ac765d9646ef4e84a208f4");
+
+
+  height: auto;
+  width: 100%; 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.headingStyle {
+
+    color: crimson;
+    font-family: "Comic Sans MS";
+
+
+}
