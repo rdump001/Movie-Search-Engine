@@ -7,7 +7,7 @@
     $gender = mysqli_real_escape_string($conn, $_POST['gender']); 
     $country = mysqli_real_escape_string($conn, $_POST['country']); 
     //echo($conn);
-    $userLoginQuery = "UPDATE `users` SET `age`='$age',`country`='$country',`gender`='$gender' WHERE `emailId` = '$emailId'";
+    $userLoginQuery = "UPDATE `user` SET `age`='$age',`country`='$country',`gender`='$gender' WHERE `emailId` = '$emailId'";
             if ($conn->query($userLoginQuery) === TRUE) {
                 echo "<script>alert (\"Successful update\")</script>";
                 header("refresh:1; url=./homePage.php");

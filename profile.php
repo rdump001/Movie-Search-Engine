@@ -3,7 +3,7 @@
                require('./connect.php');
               $emailId=$_SESSION['email_id'];
 
-                $userLoginQuery = "SELECT * FROM `users` WHERE `emailId`= '$emailId' ";
+                $userLoginQuery = "SELECT * FROM `user` WHERE `emailId`= '$emailId' ";
 
                $result = $conn->query($userLoginQuery);   
               if ($result->num_rows > 0) {
@@ -34,6 +34,7 @@
         <p><b> Age: </b> <?php echo  $age; ?></p>
         <p><b> Country </b> <?php echo  $country; ?></p>
         <input class="btn btn-lg btn-primary btn-block" type="submit" value="Update Information" name="submit">
+        <a class="btn btn-lg btn-primary btn-block" href="homePage.php">Back</a>
       </form>
     </body>
 </html>

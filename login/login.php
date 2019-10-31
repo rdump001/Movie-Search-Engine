@@ -6,7 +6,7 @@
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $newURL = "./../homePage.php";
     //echo($conn);
-    $userLoginQuery = "SELECT * FROM `users` WHERE `emailId`= '$emailId' AND `password`= '$password'";
+    $userLoginQuery = "SELECT * FROM `user` WHERE `emailId`= '$emailId' AND `password`= '$password'";
 
             $result = $conn->query($userLoginQuery);   
             if ($result->num_rows > 0) {
@@ -18,7 +18,9 @@
              
             }
               else {
-                echo "Invalid Password or User does not exist";
+                echo "<script>alert (\"Invalid Password or Username\")</script>";
+
+                header("refresh:1; url=./../index.php");
             }
              $conn->close();
            

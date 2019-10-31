@@ -7,7 +7,7 @@
 
 .bg {
 
-  background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/k-p-197-pom-8008.jpg?w=1400&dpr=1&fit=default&crop=default&auto=format&fm=jpg&q=75&vib=3&con=3&usm=15&markpad=13&markalpha=90&markscale=10&markx=25&mark=rawpixel-watermark.png&cs=srgb&bg=F4F4F3&ixlib=js-2.1.2&s=37034fabc5ac765d9646ef4e84a208f4");
+  background-image: url("https://images.unsplash.com/photo-1506434304575-afbb92660c28?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80");
 
 
   height: auto;
@@ -22,3 +22,12 @@
 
 
 }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color:#2d2d2d;
+  color: white;
+  text-align: center;

@@ -1,7 +1,52 @@
+<?php
+
+require_once 'init.php';
+
+if(isset($_GET['q'])){
+   $q = htmlspecialchars($_GET['q']);
+   // $escape =htmlspecialchars(mysqli_real_escape_string($q));
+   // echo print_r($escape);
+   // die();
+
+   $query = $es->search([
+      'index'=> 'movies',
+      'type' => '_doc',
+      'body' => [
+         'query' => [
+                  'match' => ['movie_title' => $q]
+                  //'match' => ['director_name' => $q]
+               ]
+            ]
+         ]
+      );
+      //echo '<pre>', print_r($query), '</pre>';
+
+      //die();
+
+      if($query['hits']['total'] >= 1){
+         $results = $query ['hits']['hits'];
+        // echo '<pre>', print_r($results), '</pre>';
+         //echo '<pre>', print_r($query['hits']['total']['value']), '</pre>';
+      }
+}
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="opacity = 0.6;" >
    <head>
-      <title>Movie Search</title>
+   <meta charset="utf-8">
+  <title>Movie Search</title>
+  <meta name="description" content="search-results">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="//fonts.googleapis.com/css?family=Pattaya|Slabo+27px|Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -11,14 +56,34 @@
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
       <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
       <link href="styles/css/bootstrap.css" rel="stylesheet" />
-      <link href="styles/css/login-register.css" rel="stylesheet" />
       <link href="styles/css/index.css" rel="stylesheet" />
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="styles/css/login-register.css" rel="stylesheet" />
       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link rel="stylesheet" href="/styles/style.css">
       <script src="styles/js/jquery-1.10.2.js" type="text/javascript"></script>
       <script src="styles/js/bootstrap.js" type="text/javascript"></script>
       <script src="styles/js/login-register.js" type="text/javascript"></script>
+
+  <style>
+      h1 {
+        font-family: 'Pattaya', sans-serif;
+        font-size: 59px;
+        position: relative;
+        right: -10px;
+      }
+
+      h3 {
+        font-family: 'Pattaya', sans-serif;
+        font-size: 20px;
+        position: relative;
+        right: -90px;
+      }
+
+      h4 {
+        font-family: 'Slabo', sans-serif;
+        font-size: 30px;
+      }
+  </style>
    </head>
    <body class="bg">
       <nav class="navbar navbar-inverse">
@@ -80,7 +145,7 @@
                         <div class="form">
                            <form method="POST" action="./signUp/signUp.php" accept-charset="UTF-8">
                               <input class="form-control" type="text" id="user" name="username" placeholder="Username">
-                              <input class="form-control" type="text" id="email" name="emailid" placeholder="Email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required title="somthing@someserver.com">
+                              <input class="form-control" type="text" id="email" name="email" placeholder="Email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required title="somthing@someserver.com">
                               <input class="form-control" type="password" id="pass" name="password" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"   required title="Password (UpperCase, LowerCase, Number/SpecialChar and min 8 Chars)">
                               <input class="form-control" type="submit" value="Sign Up" name="submit">
                            </form>
@@ -106,21 +171,41 @@
       </div>
       </div>
       
-      <div class='col-xs-12 col-sm-12 col-md-4 col-lg-12'>
-         <div class="container searchbar">
-            <div class="wrap">
-               <div class="search">
-               <h1 class= "headingStyle">It's POPCORN TIME !!! </h1>
-               <br>
-               <br>
-               <input type="textarea" class="searchTerm" placeholder="  Search Movies" style="opacity: 0.9;width:50%;font-size:24px;">
-               <button type="submit" class="searchButton" style="font-size:24px;opacity: 0.7;">
+      <div class='col-xs-12 col-sm-12 col-md-4 col-lg-12' style="opacity = 0.8;">
+      <div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+        <div class="input-group" style= "margin-top: 175px;">
+        <span class="input-group-btn">
+        <form action="results.php" method="get" autocomplete="off" style="display:inline-block">
+        <input type="text" name="q" id="q" placeholder="Search..." class="form-control" style="
+               background-color: #ffffffe0;
+               width: 550px;">
+              
+               
+               <button type="submit" value="Search" class="searchButton" style="font-size:20.5px;opacity: 0.7;">
+               
                   <i class="fa fa-search"></i>
                   </button>
-                  </button>
+                  </form>
+                  <!-- <script src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
+                  <script>
+                  function myfunc(){
+                     var name = document.getElementById("q").value;
+                     var safe_query = filterXSS(name);
+                     document.getElementById("demo").innerHTML = safe_query;
+
+                  }
+                  </script> --> -->
                </div>
+               </span>
+               <br>
+               <a href="advance.php" type="button" style="font-size: medium;color: white;margin-left: 233px;"> Advance Search </a>
             </div>
          </div>
       </div>
+
+      <div class="footer">
+  <p>Copyright &copy 2019</p>
+</div>
    </body>
 </html>

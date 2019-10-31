@@ -5,7 +5,7 @@
     $emailId = mysqli_real_escape_string($conn, $_POST['emailId']); 
     $newURL = "./../index.php";
     //echo($conn);
-    $userLoginQuery = "SELECT * FROM `users` WHERE `emailId`= '$emailId'";
+    $userLoginQuery = "SELECT * FROM `user` WHERE `emailId`= '$emailId'";
 
             $result = $conn->query($userLoginQuery);   
             if ($result->num_rows > 0) {
