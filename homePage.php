@@ -59,7 +59,7 @@
                <a class="navbar-brand" href="#">MovieSearch</a>
             </div>
             <ul class="nav navbar-nav">
-               <li class="active"><a href="#">Home</a></li>
+               <li class="active"><a href="homePage.php">Home</a></li>
                <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">Genres<span class="caret"></span></a>
                   <ul class="dropdown-menu">
@@ -71,6 +71,7 @@
                </li>
                <li><a href="upload.php">Add Movie</a></li>
                <li><a href="profile.php">My Profile</a></li>
+               <li><a href="searchhistory.php">My Favorites</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                <li><a class="glyphicon glyphicon-user" data-toggle="modal" href="./index.php" > Logout
@@ -116,7 +117,7 @@
                </div>
                </span>
                <br>
-               <a href="advance.php" type="button" style="font-size: medium;color: white;margin-left: 233px;"> Advance Search </a>
+               <a href="advance.php" type="button" style="font-size: medium;color: white;margin-left: 233px;"> Advanced Search </a>
             </div>
          </div>
       </div>

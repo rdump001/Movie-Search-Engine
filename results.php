@@ -3,27 +3,33 @@ require_once 'init.php';
 
 if(isset($_GET['q'])) {
 
-	$q = htmlspecialchars($_GET['q']);
+   $q = strip_tags($_GET['q']);
 	$query = $es->search([
 		'index'=> 'movies',
       'type' => '_doc',
+      'from' => 0,
+      'size' =>1000,
       'body' => [
          'query' => [
-                  'match' => ['movie_title' => $q]
+                  'match'  => ['movie_title' => $q],
                   //'match' => ['director_name' => $q]
-               ]
-            ]
          ]
-      );
+      
+      ]
+            
+   ]);
       //echo '<pre>', print_r($query), '</pre>';
 
       //die();
 
       if($query['hits']['total'] >= 1){
          $results = $query ['hits']['hits'];
+      //   echo '<pre>', $total = $query['hits']['total']['value'], '</pre>';
+      // $variables['total'] = $total;
         // echo '<pre>', print_r($results), '</pre>';
          //echo '<pre>', print_r($query['hits']['total']['value']), '</pre>';
       }
+      
 }
 
 ?>
@@ -34,8 +40,8 @@ if(isset($_GET['q'])) {
   <meta charset="utf-8">
   <title>Movie Search</title>
   <meta name="description" content="search-results">
-  <meta name="author" content="Ruan Bekker">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   <link href="//fonts.googleapis.com/css?family=Pattaya|Slabo+27px|Raleway:400,300,600" rel="stylesheet" type="text/css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -60,6 +66,10 @@ if(isset($_GET['q'])) {
       <script src="styles/js/jquery-1.10.2.js" type="text/javascript"></script>
       <script src="styles/js/bootstrap.js" type="text/javascript"></script>
       <script src="styles/js/login-register.js" type="text/javascript"></script>
+      <script src="styles/js/result.js" type="text/javascript"></script>
+      <script src="styles/js/pagination.js" type="text/javascript"></script>
+      <script src="styles/js/hilitor.js" type="text/javascript"></script>
+
 
   <style>
       h1 {
@@ -83,6 +93,15 @@ if(isset($_GET['q'])) {
   </style>
 
 </head>
+<script type="text/javascript">
+
+  var myHilitor; // global variable
+  window.addEventListener("DOMContentLoaded", function(e) {
+    myHilitor = new Hilitor("content");
+    myHilitor.apply("<?php echo $q; ?>");
+  }, false);
+
+</script>
 <body>
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
@@ -133,6 +152,7 @@ if(isset($_GET['q'])) {
                            <form method="POST" action="./login/login.php" accept-charset="UTF-8">
                               <input type="text" id="emailId" name="emailId" placeholder="Email ID" required title="somthing@someserver.com">
                               <input type="password" id="pass" name="password" placeholder="Password" required title="Password">
+                              <div class="g-recaptcha" data-sitekey="6LcBBsIUAAAAAHESniQ8DbsKwGzX2bpLn7OPZglO"></div>
                               <input type="submit" value="Login" class="form-control" name="submit">
                            </form>
                         </div>
@@ -145,6 +165,7 @@ if(isset($_GET['q'])) {
                               <input class="form-control" type="text" id="user" name="username" placeholder="Username">
                               <input class="form-control" type="text" id="email" name="email" placeholder="Email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required title="somthing@someserver.com">
                               <input class="form-control" type="password" id="pass" name="password" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"   required title="Password (UpperCase, LowerCase, Number/SpecialChar and min 8 Chars)">
+                              <div class="g-recaptcha" data-sitekey="6LcBBsIUAAAAAHESniQ8DbsKwGzX2bpLn7OPZglO"></div>
                               <input class="form-control" type="submit" value="Sign Up" name="submit">
                            </form>
                         </div>
@@ -184,11 +205,11 @@ if(isset($_GET['q'])) {
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4">
         <div class="input-group">
-        <input type="text" name="q" placeholder="Search..." class="form-control" style="
+        <input type="text" name="q" id="title" placeholder="<?php echo $q;?>" class="form-control" style="
     background-color: transparent;
 ">
             <span class="input-group-btn"> 
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary ">Search</button>
                 <a class="btn btn-danger" href="index.php">Back</a> 
             </span>
         </div>
@@ -203,15 +224,24 @@ if(isset($_GET['q'])) {
     <h2> Search Results: </h2>
     </div>
   </div>
-
-
+  <div class="page"></div>
+  
         <?php
         if(isset($results)) {
-            foreach($results as $r) {
-            ?>
+         $max = sizeof($results);
+         $pagesize =10;
+         $pagecount = $max/$pagesize;
+            foreach($results as $key=>$r) {
 
+             if($key<$pagesize)
+             {
+
+             
+            ?>
+            
+              
                 <div class="row" style="text-align: center">
-   		  <div class="container">
+   		  <div class="container initial">
   		    <div class="panel panel-success">
                       <div class=panel-heading style="background-color : aliceblue;">  
                         <h2 class=panel-title>
@@ -220,8 +250,9 @@ if(isset($_GET['q'])) {
                           </a>
                       </div>
                         <br><br>
-                          <b>Movie Director</b><p> 
+                          <b>Movie Director</b><p > 
                               <?php echo  $r['_source']['director_name']; ?><p></p><br>
+                              
                               <b>Actor</b><p> 
                               <?php echo  $r['_source']['actor_1_name']; ?><p></p><br>
                               <b>Genres</b><p> 
@@ -229,19 +260,61 @@ if(isset($_GET['q'])) {
                               <b>Rating</b><p> 
                               <?php echo  $r['_source']['imdb_score']; ?><p></p><br>
 
-                      <div class="">
+                      <!-- <div class="">
                           <b>Id:</b>
                             <center>
                                 <?php echo $r['_id']; ?>
                             </center>
                           <br>
-                    </div> 
+                    </div>  -->
+                    <input method= "POST" id="<?php echo $r['_id']; ?>" type="submit" class="btn btn-success save" value="Save" style="
+    background-color: skyblue;">
+                     <br>
+               <br>
                   </div>
+                  
                 </div>
+               
+                
             <?php
+             }
+            } 
+            
+            ?>
+            </div>
+            
+            <nav aria-label="...">
+            <ul class="pagination">
+               
+
+             
+            <?php
+            
+            for($i=1;$i<$pagecount;$i++){
+            ?>
+
+               <li class="page-item"><a class="page-link searchresult" id="<?php echo $q ?>" href="#" value=<?php echo $i?>><?php echo $i ?></a></li>
+            <?php       
             }
+
+          
+            ?>
+
+               
+            </ul>
+            </nav>
+               
+               
+           
+          
+            <?php
         }
         ?>
+
+
+
+<br>
+<br>
 
 <div class="footer">
   <p>Copyright &copy 2019</p>

@@ -6,8 +6,7 @@ include('../connect.php');
 use PHPMailer\PHPMailer\PHPMailer;
 require '/Applications/XAMPP/vendor/autoload.php';
 
-require '/Applications/XAMPP/xamppfiles/htdocs/SearchEngine/includes/PHPMailer/src/PHPMailer.php';
-require '/Applications/XAMPP/xamppfiles/htdocs/SearchEngine/includes/PHPMailer/src/SMTP.php';
+
 
 //<!--Check user inputs-->
 //    <!--Define error messages-->
@@ -18,13 +17,22 @@ $missingPassword = '<p><strong>Please enter a Password!</strong></p>';
 $invalidPassword = '<p><strong>Your password should be at least 6 characters long and inlcude one capital letter and one number!</strong></p>';
 $differentPassword = '<p><strong>Passwords don\'t match!</strong></p>';
 $missingPassword2 = '<p><strong>Please confirm your password</strong></p>';
+$captchaerrormsg = '<p><strong>Verify if you are robot or not</strong></p>';
 $errors='';
+
 //Get username
 if(empty($_POST["username"])){
   $errors .= $missingUsername;
 }else{
     $username = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
 }
+
+if(empty($_POST['g-recaptcha-response'])){
+    $errors .= $captchaerrormsg;
+  }else{
+      $responseKey = $_POST['g-recaptcha-response'];
+  }
+  
 //Get email
 if(empty($_POST["email"])){
     $errors .= $missingEmail;
@@ -50,6 +58,29 @@ if($errors){
     echo $resultMessage;
     exit;
 }
+
+// ReCaptcha
+if(isset($_POST['g-recaptcha-response'])) {
+
+    $responseKey = $_POST['g-recaptcha-response'];
+  
+    if(!$responseKey){
+      $errors .= $captchaerrormsg;
+    }
+  
+  $secretKey = "6LcBBsIUAAAAAIbw7A9nqRV1yw40w1qZUhI15bsR";
+  $userIP = $_SERVER['REMOTE_ADDR'];
+  
+  $url = "https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$responseKey."&remoteIP=".$userIP;
+  $response = file_get_contents($url);
+  $response = json_decode($response,true);
+  
+    if(intval($response["success"]) !== 1) {
+     // echo '<h2>Error using captcha</h2>';
+  
+    }
+}else{ 
+
 //no errors
 
 //Prepare variables for the queries
@@ -160,13 +191,19 @@ $mail->Body    = 'http://localhost/SearchEngine//activate.php?email=" . urlencod
 if (!$mail->send()) {
     echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
-    echo "Message sent!";
+    echo "Thank for your registring! A confirmation email has been sent to $email. Please click on the activation link to activate your account";
+
+
+    error_reporting(-1);
+    ini_set('display_errors','on');
+    set_error_handler("var_dump");
+    //echo "Mailer Error: " . $mail->ErrorInfo;
     //Section 2: IMAP
     //Uncomment these to save your message in the 'Sent Mail' folder.
     #if (save_mail($mail)) {
     #    echo "Message saved!";
     #}
 }
-
+}
 
 ?>

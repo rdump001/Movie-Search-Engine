@@ -231,13 +231,13 @@ require_once 'init.php';
                               <b>Rating</b><p> 
                               <?php echo  $r['_source']['imdb_score']; ?><p></p><br>
 
-                      <div class="">
+                      <!-- <div class="">
                           <b>DocId:</b>
                             <center>
                                 <?php echo $r['_id']; ?>
                             </center>
                           <br>
-                    </div> 
+                    </div>  -->
                   </div>
                 </div>
             <?php
