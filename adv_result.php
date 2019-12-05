@@ -36,7 +36,6 @@ require_once 'init.php';
   <meta charset="utf-8">
   <title>Movie Search</title>
   <meta name="description" content="search-results">
-  <meta name="author" content="Ruan Bekker">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href="//fonts.googleapis.com/css?family=Pattaya|Slabo+27px|Raleway:400,300,600" rel="stylesheet" type="text/css">

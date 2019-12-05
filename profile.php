@@ -26,7 +26,7 @@
 <link href="styles/css/index.css" rel="stylesheet" />
    </head>
    <body class="bg">
-   <form action="./updateDetails.php" class="form-signin" method="POST">
+   <form action="./updateDetails.php" class="form-signin" method="POST" style="color: aliceblue">
         <h2 class="form-signin-heading">User Profile</h2>
         <p><b> Name: </b><?php echo  $username; ?></p>
         <p><b> Email Id: </b> <?php echo  $emailId; ?></p>

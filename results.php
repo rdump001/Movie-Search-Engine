@@ -1,55 +1,51 @@
 <?php
-require_once 'init.php';
-
-if(isset($_GET['q'])) {
-
-   $q = strip_tags($_GET['q']);
-	$query = $es->search([
-		'index'=> 'movies',
-      'type' => '_doc',
-      'from' => 0,
-      'size' =>1000,
-      'body' => [
-         'query' => [
-                  'match'  => ['movie_title' => $q],
-                  //'match' => ['director_name' => $q]
+   require_once 'init.php';
+   
+   if(isset($_GET['q'])) {
+   
+      $q = strip_tags($_GET['q']);
+   	$query = $es->search([
+   		'index'=> 'movies',
+         'type' => '_doc',
+         'from' => 0,
+         'size' =>1000,
+         'body' => [
+            'query' => [
+                     'match'  => ['movie_title' => $q],
+                     //'match' => ['director_name' => $q]
+            ]
+         
          ]
-      
-      ]
-            
-   ]);
-      //echo '<pre>', print_r($query), '</pre>';
-
-      //die();
-
-      if($query['hits']['total'] >= 1){
-         $results = $query ['hits']['hits'];
-      //   echo '<pre>', $total = $query['hits']['total']['value'], '</pre>';
-      // $variables['total'] = $total;
-        // echo '<pre>', print_r($results), '</pre>';
-         //echo '<pre>', print_r($query['hits']['total']['value']), '</pre>';
-      }
-      
-}
-
-?>
+               
+      ]);
+         //echo '<pre>', print_r($query), '</pre>';
+   
+         //die();
+   
+         if($query['hits']['total'] >= 1){
+            $results = $query ['hits']['hits'];
+         //   echo '<pre>', $total = $query['hits']['total']['value'], '</pre>';
+         // $variables['total'] = $total;
+           // echo '<pre>', print_r($results), '</pre>';
+            //echo '<pre>', print_r($query['hits']['total']['value']), '</pre>';
+         }
+         
+   }
+   
+   ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
-  <meta charset="utf-8">
-  <title>Movie Search</title>
-  <meta name="description" content="search-results">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-  <link href="//fonts.googleapis.com/css?family=Pattaya|Slabo+27px|Raleway:400,300,600" rel="stylesheet" type="text/css">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="icon" type="image/png" href="images/favicon.png">
-
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.min.js"></script>
-  
+   <head>
+      <meta charset="utf-8">
+      <title>Movie Search</title>
+      <meta name="description" content="search-results">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      <link href="//fonts.googleapis.com/css?family=Pattaya|Slabo+27px|Raleway:400,300,600" rel="stylesheet" type="text/css">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="icon" type="image/png" href="images/favicon.png">
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/jquery.min.js"></script>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -69,48 +65,42 @@ if(isset($_GET['q'])) {
       <script src="styles/js/result.js" type="text/javascript"></script>
       <script src="styles/js/pagination.js" type="text/javascript"></script>
       <script src="styles/js/hilitor.js" type="text/javascript"></script>
-
-
-  <style>
-      h1 {
-        font-family: 'Pattaya', sans-serif;
-        font-size: 59px;
-        position: relative;
-        right: -10px;
-      }
-
-      h3 {
-        font-family: 'Pattaya', sans-serif;
-        font-size: 20px;
-        position: relative;
-        right: -90px;
-      }
-
-      h4 {
-        font-family: 'Slabo', sans-serif;
-        font-size: 30px;
-      }
-  </style>
-
-</head>
-<script type="text/javascript">
-
-  var myHilitor; // global variable
-  window.addEventListener("DOMContentLoaded", function(e) {
-    myHilitor = new Hilitor("content");
-    myHilitor.apply("<?php echo $q; ?>");
-  }, false);
-
-</script>
-<body>
+      <style>
+         h1 {
+         font-family: 'Pattaya', sans-serif;
+         font-size: 59px;
+         position: relative;
+         right: -10px;
+         }
+         h3 {
+         font-family: 'Pattaya', sans-serif;
+         font-size: 20px;
+         position: relative;
+         right: -90px;
+         }
+         h4 {
+         font-family: 'Slabo', sans-serif;
+         font-size: 30px;
+         }
+      </style>
+   </head>
+   <script type="text/javascript">
+      var myHilitor; // global variable
+      window.addEventListener("DOMContentLoaded", function(e) {
+        myHilitor = new Hilitor("content");
+        myHilitor.apply("<?php echo $q; ?>");
+      }, false);
+      
+   </script>
+   <body>
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
             <div class="navbar-header">
-               <a class="navbar-brand" href="#">MovieSearch</a>
+               <a class="navbar-brand" href="homePage.php">MovieSearch</a>
             </div>
             <ul class="nav navbar-nav">
-               <li class="active"><a href="#">Home</a></li>
-               <li class="dropdown">
+               <li class="active"><a href="homePage.php">Home</a></li>
+               <!-- <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">Genres<span class="caret"></span></a>
                   <ul class="dropdown-menu">
                      <li><a href="#">Action</a></li>
@@ -118,13 +108,16 @@ if(isset($_GET['q'])) {
                      <li><a href="#">Horror</a></li>
                      <li><a href="#">Thriller</a></li>
                   </ul>
-               </li>
-               <li><a href="#">NewReleases</a></li>
+               </li> -->
+               <li><a href="upload.php">Add Movie</a></li>
+                  <li><a href="profile.php">My Profile</a></li>
+                  <li><a href="favourites.php">My Favorites</a></li>
+                  <li><a href="locator.php">Theaters Locator</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <!-- <ul class="nav navbar-nav navbar-right">
                <li><a class="glyphicon glyphicon-user" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();"> Register</a></li>
                <li><a class="glyphicon glyphicon-log-in" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();"> Login</a></li>
-            </ul>
+            </ul> -->
          </div>
       </nav>
       <div class="modal fade login" id="loginModal">
@@ -189,135 +182,122 @@ if(isset($_GET['q'])) {
          </div>
       </div>
       </div>
-
-<br>
-<div class="row vertical-center-row">
-    <div class="col-lg-4 col-lg-offset-4">
-        <div class="input-group">
-         <h2></h2><p>
-        </div>
-    </div>
-</div>
-
-<br>
-<br>
-<form action="results.php" method="get" autocomplete="on">
-<div class="row">
-    <div class="col-lg-4 col-lg-offset-4">
-        <div class="input-group">
-        <input type="text" name="q" id="title" placeholder="<?php echo $q;?>" class="form-control" style="
-    background-color: transparent;
-">
-            <span class="input-group-btn"> 
-                <button type="submit" class="btn btn-primary ">Search</button>
-                <a class="btn btn-danger" href="index.php">Back</a> 
-            </span>
-        </div>
-    </div>
-</div>
-</form>
-<br>
-
-<br>
- <div class="container">
-    <div class="row" style="text-align: center">
-    <h2> Search Results: </h2>
-    </div>
-  </div>
-  <div class="page"></div>
-  
-        <?php
-        if(isset($results)) {
-         $max = sizeof($results);
-         $pagesize =10;
-         $pagecount = $max/$pagesize;
-            foreach($results as $key=>$r) {
-
-             if($key<$pagesize)
-             {
-
-             
-            ?>
-            
+      <br>
+      <div class="row vertical-center-row">
+         <div class="col-lg-4 col-lg-offset-4">
+            <div class="input-group">
+               <h2></h2>
+               <p>
+            </div>
+         </div>
+      </div>
+      <br>
+      <br>
+      <form action="results.php" method="get" autocomplete="on">
+         <div class="row">
+            <div class="col-lg-4 col-lg-offset-4">
+               <div class="input-group">
+                  <input type="text" name="q" id="title" placeholder="<?php echo $q;?>" class="form-control" style="
+                     background-color: transparent;
+                     ">
+                  <span class="input-group-btn"> 
+                  <button type="submit" class="btn btn-primary ">Search</button>
+                  <a class="btn btn-danger" href="homePage.php">Back</a> 
+                  </span>
+               </div>
+            </div>
+         </div>
+      </form>
+      <br>
+      <br>
+      <div class="container">
+         <div class="row" style="text-align: center">
+            <h2> Search Results: </h2>
+         </div>
+      </div>
+      <div class="page"></div>
+      <?php
+         if(isset($results)) {
+          $max = sizeof($results);
+          $pagesize =10;
+          $pagecount = $max/$pagesize;
+             foreach($results as $key=>$r) {
+         
+              if($key<$pagesize)
+              {
+         
               
-                <div class="row" style="text-align: center">
-   		  <div class="container initial">
-  		    <div class="panel panel-success">
-                      <div class=panel-heading style="background-color : aliceblue;">  
-                        <h2 class=panel-title>
-                          <a href="<?php echo $r['_source']['movie_imdb_link']; ?>" target="_blank"><p><br>
-                            <?php echo $r['_source']['movie_title']; ?>
-                          </a>
-                      </div>
-                        <br><br>
-                          <b>Movie Director</b><p > 
-                              <?php echo  $r['_source']['director_name']; ?><p></p><br>
-                              
-                              <b>Actor</b><p> 
-                              <?php echo  $r['_source']['actor_1_name']; ?><p></p><br>
-                              <b>Genres</b><p> 
-                              <?php echo  $r['_source']['genres']; ?><p></p><br>
-                              <b>Rating</b><p> 
-                              <?php echo  $r['_source']['imdb_score']; ?><p></p><br>
-
-                      <!-- <div class="">
-                          <b>Id:</b>
-                            <center>
-                                <?php echo $r['_id']; ?>
-                            </center>
-                          <br>
-                    </div>  -->
-                    <input method= "POST" id="<?php echo $r['_id']; ?>" type="submit" class="btn btn-success save" value="Save" style="
-    background-color: skyblue;">
-                     <br>
+             ?>
+      <div class="row" style="text-align: center">
+         <div class="container initial">
+            <div class="panel panel-success">
+               <div class=panel-heading style="background-color : aliceblue;">
+                  <h2 class=panel-title>
+                  <a href="<?php echo $r['_source']['movie_imdb_link']; ?>" target="_blank">
+                     <p><br>
+                        <?php echo $r['_source']['movie_title']; ?>
+                  </a>
+               </div>
+               <br><br>
+               <b>Movie Director</b>
+               <p > 
+                  <?php echo  $r['_source']['director_name']; ?>
+               <p></p>
                <br>
-                  </div>
-                  
-                </div>
-               
-                
-            <?php
-             }
+               <b>Actor</b>
+               <p> 
+                  <?php echo  $r['_source']['actor_1_name']; ?>
+               <p></p>
+               <br>
+               <b>Genres</b>
+               <p> 
+                  <?php echo  $r['_source']['genres']; ?>
+               <p></p>
+               <br>
+               <b>Rating</b>
+               <p> 
+                  <?php echo  $r['_source']['imdb_score']; ?>
+               <p></p>
+               <br>
+               <!-- <div class="">
+                  <b>Id:</b>
+                    <center>
+                        <?php echo $r['_id']; ?>
+                    </center>
+                  <br>
+                  </div>  -->
+               <input method= "POST" id="<?php echo $r['_id']; ?>" type="submit" class="btn btn-success save" value="Save" style="
+                  background-color: skyblue;">
+               <br>
+               <br>
+            </div>
+         </div>
+         <?php
+            }
             } 
             
             ?>
-            </div>
-            
-            <nav aria-label="...">
-            <ul class="pagination">
-               
-
-             
+      </div>
+      <nav aria-label="...">
+         <ul class="pagination">
             <?php
-            
-            for($i=1;$i<$pagecount;$i++){
-            ?>
-
-               <li class="page-item"><a class="page-link searchresult" id="<?php echo $q ?>" href="#" value=<?php echo $i?>><?php echo $i ?></a></li>
+               for($i=1;$i<$pagecount;$i++){
+               ?>
+            <li class="page-item"><a class="page-link searchresult" id="<?php echo $q ?>" href="#" value=<?php echo $i?>><?php echo $i ?></a></li>
             <?php       
-            }
-
-          
-            ?>
-
-               
-            </ul>
-            </nav>
+               }
                
                
-           
-          
-            <?php
-        }
-        ?>
-
-
-
-<br>
-<br>
-
-<div class="footer">
-  <p>Copyright &copy 2019</p>
-</div>
-</body>
+               ?>
+         </ul>
+      </nav>
+      <?php
+         }
+         ?>
+      <br>
+      <br>
+      <div class="footer">
+         <p>Copyright &copy 2019</p>
+      </div>
+   </body>
 </html>

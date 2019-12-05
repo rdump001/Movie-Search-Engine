@@ -7,8 +7,7 @@
 
 .bg {
 
-  background-image: url("https://images.unsplash.com/photo-1506434304575-afbb92660c28?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80");
-
+  background-image: url("https://cdn.thenassauguardian.com/wp-content/uploads/2018/02/02024959/movie-making-1100x824.jpg");
 
   height: auto;
   width: 100%; 
@@ -31,3 +30,4 @@
   background-color:#2d2d2d;
   color: white;
   text-align: center;
+}

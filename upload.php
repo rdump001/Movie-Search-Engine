@@ -85,7 +85,7 @@ if (!empty($_POST)) {
             </div>
             <ul class="nav navbar-nav">
                <li class="active"><a href="homePage.php">Home</a></li>
-               <li class="dropdown">
+               <!-- <li class="dropdown">
                   <a class="dropdown-toggle" data-toggle="dropdown" href="#">Genres<span class="caret"></span></a>
                   <ul class="dropdown-menu">
                      <li><a href="#">Action</a></li>
@@ -93,9 +93,10 @@ if (!empty($_POST)) {
                      <li><a href="#">Horror</a></li>
                      <li><a href="#">Thriller</a></li>
                   </ul>
-               </li>
-               <li><a href="upload.php">Add Movie</a></li>
+               </li> -->
                <li><a href="profile.php">My Profile</a></li>
+               <li><a href="favourites.php">My Favorites</a></li>
+               <li><a href="locator.php">Theaters Locator</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                <li><a class="glyphicon glyphicon-user" data-toggle="modal" href="./index.php" > Logout

@@ -30,9 +30,10 @@
             $movie_actor=$r['_source']['actor_1_name'];
             $movie_genre=$r['_source']['genres'];
             $movie_imdb=$r['_source']['imdb_score'];
+            $movie_imdb_link=$r['_source']['movie_imdb_link'];
          }
 
-         $sql = "INSERT INTO history (`user`, `id`, `movie_title`, `director_name`, `actor_1_name`, `genres`, `imdb_score`) VALUES ('$user','$data', '$movie_title', '$movie_director', '$movie_actor', '$movie_genre', '$movie_imdb')";
+         $sql = "INSERT INTO history (`user`, `id`, `movie_title`, `director_name`, `actor_1_name`, `genres`, `imdb_score`, `movie_imdb_link`) VALUES ('$user','$data', '$movie_title', '$movie_director', '$movie_actor', '$movie_genre', '$movie_imdb', '$movie_imdb_link')";
          $result = mysqli_query($conn, $sql);
          echo"inserted";
 
