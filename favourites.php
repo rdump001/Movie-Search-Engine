@@ -18,7 +18,7 @@
 <head>
 
   <meta charset="utf-8">
-  <title>Movie Search</title>
+  <title>THE FLICKS</title>
   <meta name="description" content="search-results">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -99,7 +99,7 @@
                               <?php echo $row['genres'];?></p><p></p><br>
                               <b>Rating</b><p> 
                               <?php echo $row['imdb_score'];?></p><p></p><br>
-                              <input method= "POST" id="<?php echo $row['id']; ?>" type="submit" class="btn btn-success delete" value="Delete" style="
+                              <input method= "POST" id="<?php echo $row['id']; ?>" type="submit" class="btn btn-success delete" value="Remove" style="
     background-color: skyblue;">
                               <br>
                               <br>

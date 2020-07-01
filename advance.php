@@ -8,7 +8,7 @@ require_once 'init.php';
 <html>
     <head>
     	<meta charset="utf-8">
-    	<title>AdvanceSearch</title>
+    	<title>THE FLICKS</title>
 
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -55,7 +55,7 @@ require_once 'init.php';
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
             <div class="navbar-header">
-               <a class="navbar-brand" href="#">MovieSearch</a>
+               <a class="navbar-brand" href="#">FLICKS</a>
             </div>
             <ul class="nav navbar-nav">
                <li class="active"><a href="#">Home</a></li>

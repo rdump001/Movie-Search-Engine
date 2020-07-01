@@ -37,7 +37,7 @@
 <html lang="en">
    <head>
       <meta charset="utf-8">
-      <title>Movie Search</title>
+      <title>THE FLICKS</title>
       <meta name="description" content="search-results">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -96,7 +96,7 @@
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
             <div class="navbar-header">
-               <a class="navbar-brand" href="index.php">MovieSearch</a>
+               <a class="navbar-brand" href="index.php">FLICKS</a>
             </div>
             <ul class="nav navbar-nav">
                <li class="active"><a href="index.php">Home</a></li>

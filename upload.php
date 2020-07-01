@@ -81,7 +81,7 @@ if (!empty($_POST)) {
       <nav class="navbar navbar-inverse">
          <div class="container-fluid">
             <div class="navbar-header">
-               <a class="navbar-brand" href="homePage.php">MovieSearch</a>
+               <a class="navbar-brand" href="homePage.php">FLICKS</a>
             </div>
             <ul class="nav navbar-nav">
                <li class="active"><a href="homePage.php">Home</a></li>
